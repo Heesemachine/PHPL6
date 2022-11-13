@@ -71,10 +71,12 @@ abstract class Model implements DbModelInterface
      */
     public function sort($params)
     {
-        /*
-          TODO
-          return $this;
-         */
+        if (count($params) > 0) {
+            $this->sql .= sprintf(
+                " order by %s",
+                Util::keyValueToList($params, "%s %s")
+            );
+        }
         return $this;
     }
 
@@ -140,7 +142,7 @@ abstract class Model implements DbModelInterface
               if ( isset($_POST[$column]) && $column !== $this->id_column ) {
               $values[$column] = $_POST[$column];
               }
-             * 
+             *
              */
             $column_value = filter_input(INPUT_POST, $column);
             if ($column_value && $column !== $this->idColumn) {
