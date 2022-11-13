@@ -97,6 +97,20 @@ class ProductController extends Controller
         $this->renderLayout();
     }
 
+    public function deleteAction()
+    {
+        $model = $this->getModel('Product');
+        $this->set("title", "Вилучення товару");
+        $id = filter_input(INPUT_POST, 'id');
+        if ($id) {
+            $model->deleteItem($id);
+            return;
+        }
+        $this->set('product', $model->getItem($this->getId()));
+
+        $this->renderLayout();
+    }
+
     /**
      * @return array
      */
